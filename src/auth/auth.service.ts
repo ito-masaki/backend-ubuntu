@@ -21,7 +21,6 @@ export class AuthService {
   //ここからauth_module(auth_controleer)で使われる関数を書いていく
   //こっちの引数は、auth.controllerから受け取る引数
   async getAuth(name: string, password: string) {
-    // name, passwordからUserレコード検索
     if (!password) {
       throw new UnauthorizedException('パスワードが指定されていません');
     }
@@ -45,6 +44,7 @@ export class AuthService {
     const ret = { token: '', user_id: user.id };
 
     var expire = new Date();
+    console.log(expire);
     expire.setDate(expire.getDate() + 1);
 
     // Repository<Auth>のクラスはCRUD操作などに対応したメソッドが存在、その1つがfindOne
@@ -55,12 +55,12 @@ export class AuthService {
     });
 
     if (auth) {
-      // 更新
+      // 更新, sign in
       auth.expire_at = expire;
       await this.authRepository.save(auth);
       ret.token = auth.token;
     } else {
-      // 挿入
+      // 挿入,sign up
       const token = crypto.randomUUID();
       const record = {
         user_id: user.id,
