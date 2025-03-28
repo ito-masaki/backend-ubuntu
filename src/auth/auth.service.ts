@@ -6,8 +6,6 @@ import { User } from 'src/entities/user';
 import * as crypto from 'crypto';
 
 @Injectable()
-//ここでは、似たような関数のセットみたいなものとclassはイメージしておいたらOK
-//auth.controllerでインスタンス化(newのやつ)される
 export class AuthService {
   //初期設定(他のclassの関数やリポジトリをもってくる)
   //こっちの引数はauth.controllerで入力しない情報全て、基本DB情報
@@ -47,7 +45,7 @@ export class AuthService {
     console.log(expire);
     expire.setDate(expire.getDate() + 1);
 
-    // Repository<Auth>のクラスはCRUD操作などに対応したメソッドが存在、その1つがfindOne
+    //authDbからuser.idで一致するものを検索
     const auth = await this.authRepository.findOne({
       where: {
         user_id: Equal(user.id),
