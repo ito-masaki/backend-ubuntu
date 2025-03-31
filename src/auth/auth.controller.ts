@@ -10,7 +10,8 @@ export class AuthController {
     @Query('user_id') name: string,
     @Query('password') password: string,
   ) {
-    console.log('auth get');
-    return await this.authService.getAuth(name, password);
+    const response = await this.authService.getAuth(name, password);
+    console.log(response);
+    return response;
   }
 }

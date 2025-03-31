@@ -8,7 +8,7 @@ const AppDataSource = new DataSource({
   password: 'mypassword',
   database: 'my-db',
   logging: true, // SQLクエリをコンソールに出力する
-  entities: ['./src/entities/*.ts'], //  エンティティファイル配列
-  migrations: ['./src/migrations/*.ts'], // マイグレーションファイル配列 マイグレーションファイルのパスを指定
+  entities: ['./entities/*.ts'], //  エンティティファイル配列
+  migrations: ['./migrations/*.ts'], // マイグレーションファイル配列 マイグレーションファイルのパスを指定
 });
 export default AppDataSource;

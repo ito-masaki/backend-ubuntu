@@ -19,9 +19,6 @@ export class AuthService {
   //ここからauth_module(auth_controleer)で使われる関数を書いていく
   //こっちの引数は、auth.controllerから受け取る引数
   async getAuth(name: string, password: string) {
-    if (!password) {
-      throw new UnauthorizedException('パスワードが指定されていません');
-    }
     // crypto.createHash('md5') で MD5アルゴリズムでハッシュオブジェクトを作成
     // update(password) でパスワードをハッシュ対象として追加
     // digest('hex') で最終的な16進数のハッシュ値を生成

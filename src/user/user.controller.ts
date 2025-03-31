@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Param, Query, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Query,
+  Body,
+  BadRequestException,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -6,12 +14,16 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  createUser(
+  async createUser(
     @Body('name') name: string,
     @Body('email') email: string,
     @Body('password') password: string,
   ) {
-    this.userService.createUser(name, email, password);
+    // dataの確認
+    console.log(name, email, password);
+
+    await this.userService.createUser(name, email, password);
+    return { message: 'User registered successfully' };
   }
 
   @Get(':id')

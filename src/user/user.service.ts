@@ -20,13 +20,16 @@ export class UserService {
   ) {}
 
   async createUser(name: string, email: string, password: string) {
+    if (!password) {
+      throw new Error('パスワードが提供されていません');
+    }
     const hash = createHash('md5').update(password).digest('hex');
     const record = {
       name: name,
       email: email,
       hash: hash,
     };
-    this.userRepository.save(record);
+    await this.userRepository.save(record);
   }
 
   async getUser(token: string, id: number) {
