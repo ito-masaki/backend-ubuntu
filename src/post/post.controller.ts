@@ -10,7 +10,9 @@ export class PostController {
     @Body('message') message: string,
     @Query('token') token: string,
   ) {
-    return await this.postService.createpost(message, token);
+    console.log(`token: ${token}`);
+    const rec = await this.postService.createpost(message, token);
+    return rec;
   }
 
   @Get()

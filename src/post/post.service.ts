@@ -33,7 +33,6 @@ export class PostService {
       content: message,
     };
     await this.microPostRepository.save(record);
-    console.log(`登録されたPost${record}`);
     return record;
   }
 
