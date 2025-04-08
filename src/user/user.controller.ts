@@ -28,6 +28,7 @@ export class UserController {
 
   @Get(':id')
   async getUser(@Param('id') id: number, @Query('token') token: string) {
+    console.log(`idは${id}, tokenは${token}`);
     return await this.userService.getUser(token, id);
   }
 }

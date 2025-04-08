@@ -6,7 +6,7 @@ async function bootstrap() {
 
   // CORS を有効化
   app.enableCors({
-    origin: 'http://127.0.0.1:5173', // 許可するオリジン
+    origin: ['http://127.0.0.1:5173', 'http://127.0.0.1:5174'], // 許可するオリジン
     credentials: true, // クッキーや認証情報を許可するか
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // 許可する HTTP メソッド
     allowedHeaders: 'Content-Type, Authorization', // 許可する HTTP ヘッダー

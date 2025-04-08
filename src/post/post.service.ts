@@ -71,7 +71,6 @@ export class PostService {
     };
 
     const records = await qb.getRawMany<ResultType>();
-    console.log(records);
     return records;
   }
 }
