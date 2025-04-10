@@ -21,8 +21,8 @@ export class UserController {
   ) {
     // dataの確認
     console.log(name, email, password);
-
-    await this.userService.createUser(name, email, password);
+    await this.userService.sendEmail(email);
+    // await this.userService.createUser(name, email, password);
     return { message: 'User registered successfully' };
   }
 

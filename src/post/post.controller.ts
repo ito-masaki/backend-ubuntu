@@ -23,9 +23,15 @@ export class PostController {
   ) {
     return await this.postService.getList(token, start, records);
   }
+
+  @Delete()
+  async deletePost(
+    @Query('token') token: string,
+    @Query('Post_id') Post_id: number,
+    @Query('start') start: number,
+    @Query('records') records: number,
+  ) {
+    console.log(token, Post_id, start, records);
+    return await this.postService.deletePost(token, Post_id, start, records);
+  }
 }
-// @Delete()
-// async deletPost(
-//   @Query('token') token: string,
-//   @Query('start') start: number,
-// )

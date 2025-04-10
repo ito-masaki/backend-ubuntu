@@ -12,7 +12,7 @@ export class PostService {
     @InjectRepository(Auth)
     private authRepository: Repository<Auth>,
   ) {}
-
+  private transporter;
   async createpost(message: string, token: string) {
     const now = new Date();
     console.log(`Postされた時刻${now} ,${message}, ${token}`); //デバック
@@ -54,6 +54,7 @@ export class PostService {
       .leftJoinAndSelect('user', 'user', 'user.id=micro_post.user_id')
       .select([
         'micro_post.id as id',
+        `micro_post.user_id as user_id`,
         'user.name as user_name',
         'micro_post.content as content',
         'micro_post.created_at as created_at',
@@ -65,12 +66,38 @@ export class PostService {
     // 送信するための型を指定
     type ResultType = {
       id: number;
+      user_id: number;
       content: string;
       user_name: string;
       created_at: Date;
     };
 
     const records = await qb.getRawMany<ResultType>();
-    return records;
+    const reverse = records.slice().reverse();
+    return reverse;
+  }
+
+  // 投稿を削除、削除後のポストリストを返す
+  async deletePost(
+    token: string,
+    Post_id: number,
+    start: number = 0,
+    nr_records: number = 10,
+  ) {
+    const now = new Date();
+    const auth = await this.authRepository.findOne({
+      where: {
+        token: Equal(token),
+        expire_at: MoreThan(now),
+      },
+    });
+    if (!auth) {
+      throw new ForbiddenException();
+    }
+
+    await this.microPostRepository.delete(Post_id);
+
+    const qb = this.getList(token, start, nr_records);
+    return qb;
   }
 }

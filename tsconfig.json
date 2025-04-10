@@ -16,6 +16,8 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "moduleResolution": "node", // モジュール解決の方法をnodeに設定
+    "esModuleInterop": true  // ESモジュールとCommonJSモジュールの互換性を有効にする
   }
 }
