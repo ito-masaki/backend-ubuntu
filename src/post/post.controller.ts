@@ -5,6 +5,7 @@ import { PostService } from './post.service';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  // 投稿を行う
   @Post()
   async createPost(
     @Body('message') message: string,
@@ -15,6 +16,7 @@ export class PostController {
     return rec;
   }
 
+  // 投稿の取得
   @Get()
   async getList(
     @Query('token') token: string,
@@ -24,6 +26,7 @@ export class PostController {
     return await this.postService.getList(token, start, records);
   }
 
+  // 投稿の削除と投稿の取得
   @Delete()
   async deletePost(
     @Query('token') token: string,
@@ -33,5 +36,21 @@ export class PostController {
   ) {
     console.log(token, Post_id, start, records);
     return await this.postService.deletePost(token, Post_id, start, records);
+  }
+
+  // キーワード検索と投稿の取得
+  @Get('keyword')
+  async getKeywordList(
+    @Query('token') token: string,
+    @Query('start') start: number,
+    @Query('records') records: number,
+    @Query(`keyword`) keyword: string,
+  ) {
+    return await this.postService.getkeywordList(
+      token,
+      start,
+      records,
+      keyword,
+    );
   }
 }

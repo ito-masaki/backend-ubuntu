@@ -19,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: 'mypassword',
       database: 'my-db',
       autoLoadEntities: true,
+      synchronize: false, // 自動同期を無効化
       // entities: ['./src/entities/*.ts'],
     }),
   ],
